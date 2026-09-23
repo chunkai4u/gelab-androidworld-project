@@ -90,6 +90,9 @@ def freeform_goal(text: str) -> str:
         "as the start and the lower date/time rows as the end. When the requested date differs "
         "from the selected date, use the date picker to select it for both rows before setting "
         "their times. Use the exact 24-hour values below, do not use All-day, then save with the checkmark. "
+        "Before saving, visually confirm that the upper row shows the requested start date and time "
+        "and the lower row shows the requested end date and time. If either row is wrong or unchanged, "
+        "do not save and do not repeat the same tap; correct that specific row instead. "
         "Do not substitute event details. " + ". ".join(details) + ". "
         "Original user request: " + text
     )
