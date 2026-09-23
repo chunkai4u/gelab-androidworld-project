@@ -93,6 +93,9 @@ def freeform_goal(text: str) -> str:
         "Before saving, visually confirm that the upper row shows the requested start date and time "
         "and the lower row shows the requested end date and time. If either row is wrong or unchanged, "
         "do not save and do not repeat the same tap; correct that specific row instead. "
+        "The app may automatically copy the start time into the lower end-time row. This is only a default: "
+        "after setting the upper start time, leave the upper row unchanged, tap the lower row's time on the right, "
+        "and set the requested end time there. "
         "Do not substitute event details. " + ". ".join(details) + ". "
         "Original user request: " + text
     )
