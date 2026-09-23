@@ -1,5 +1,7 @@
 # Handoff backlog
 
+**English** | [🌐 繁體中文](ISSUES.zh-TW.md)
+
 1. **P0 — Stabilize the emulator (environment owner).** Reproduce the recurring System UI/Settings ANRs. The prepared 3 GB SwiftShader / native 540×1200 configuration has not been boot-tested. Confirm app opening and repeated input remain responsive before starting another model experiment.
 2. **P0 — Verify the input adapter (agent owner).** Test the upstream YADB helper with filenames, spaces, punctuation, and multiline note text. Earlier AndroidWorld text injection dropped characters; the replacement is implemented but unverified. Preserve the exact requested content and do not automatically submit fields.
 3. **P1 — Finish task smoke tests (experiment owner).** Complete MarkorCreateNote and MarkorCreateNoteAndSms through the model loop and the unmodified official task verifiers. Check that recordings are complete. Retain failures with the actual reason.

@@ -1,5 +1,7 @@
 # GELab-Zero × AndroidWorld course project
 
+**English** | [🌐 繁體中文](README.zh-TW.md)
+
 Status: work paused on 2026-09-23. This repository is a development prototype, not a completed benchmark submission.
 
 ## What exists

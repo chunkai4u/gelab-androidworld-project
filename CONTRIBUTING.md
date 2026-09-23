@@ -1,5 +1,7 @@
 # Team workflow
 
+**English** | [🌐 繁體中文](CONTRIBUTING.zh-TW.md)
+
 1. Pick an issue and agree on its owner.
 2. Create a branch such as `fix/emulator-stability` or `fix/text-input`.
 3. Keep each pull request focused and describe the change, evidence, and remaining limitations.
