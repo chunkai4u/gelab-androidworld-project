@@ -1,9 +1,11 @@
 """Small natural-language terminal front end for verified AndroidWorld tasks."""
 import pathlib
+import re
 import subprocess
 import sys
 
 PROJECT = pathlib.Path(__file__).resolve().parent
+VERSION = "2.1"
 COMMANDS = (
     ("SystemWifiTurnOn", 15, ("wifi", "wi-fi", "無線網路", "開啟網路", "打开网络"), "Turn Wi-Fi on"),
     ("SimpleCalendarAddOneEvent", 30, ("calendar", "event", "行事曆", "行事历", "活動", "活动"), "Create a calendar event"),
@@ -19,10 +21,19 @@ def understand(text: str):
 def is_specific_request(text: str) -> bool:
     lowered = text.lower().strip().rstrip('.。!！')
     generic = {"create a calendar event", "calendar event", "建立行事曆活動", "建立一个行事历活动"}
-    return lowered not in generic and any(word in lowered for word in ("today", "tomorrow", "下午", "上午", "幾點", "几点", "at ", " on ", "約會", "约会"))
+    # Only the exact generic phrasing requests a generated, verifier-scored task.
+    # Any added detail must be preserved as the user's live request.
+    return lowered not in generic
+
+def freeform_goal(text: str) -> str:
+    return (
+        "Open Simple Calendar Pro and create exactly one event that satisfies this "
+        "user request. Preserve all requested people, date, time and duration. "
+        "Do not substitute event details. User request: " + text
+    )
 
 def main():
-    print("GELab-Zero Android assistant")
+    print(f"GELab-Zero Android assistant v{VERSION}")
     print("Try: 'Turn Wi-Fi on' or 'Create a calendar event'. Type 'quit' to leave.")
     while True:
         try:
@@ -45,7 +56,7 @@ def main():
         subprocess.run([str(PROJECT / "start-emulator.command")], check=True)
         subprocess.run([sys.executable, str(PROJECT / "wait_ready.py")], check=True)
         command=[sys.executable,str(PROJECT / "run_task.py"),"--runs","1","--max-steps",str(steps),"--label","terminal-chat","--user-command",text]
-        command += ["--freeform-goal",text] if specific else ["--task",task]
+        command += ["--freeform-goal",freeform_goal(text)] if specific else ["--task",task]
         result = subprocess.run(command)
         print("\nVerification complete." if result.returncode == 0 else "\nRun stopped; inspect the terminal output above.")
 
