@@ -21,7 +21,7 @@ After resolving the pending environment issues below, double-click `Start-Projec
 - `Record-Screen.command`: record only the emulator; press Enter to stop and save. This does not run an agent or produce a benchmark score.
 - `start-emulator.command`: open the emulator.
 
-The cloud Pod must be running and its model service ready. The cloud setup lives in the sibling `gelab-runpod` folder. After stopping and restarting this temporary Pod, double-click `Restore-Cloud-Model.command` to restore the model service; allow a few minutes for model download/loading.
+The cloud Pod must be running and its model service ready. The cloud setup lives in the `model/runpod/` folder. After stopping and restarting this temporary Pod, double-click `Restore-Cloud-Model.command` to restore the model service; allow a few minutes for model download/loading.
 
 ## Tasks
 

@@ -4,15 +4,15 @@
 
 **目前狀態：2026-09-23 已完成一次可現場展示的 Wi-Fi 開發測試。這個專案仍在原型開發階段，尚未完成正式評估。**
 
-[📋 中文待辦](ISSUES.zh-TW.md) · [🤝 中文協作指南](CONTRIBUTING.zh-TW.md) · [GitHub Issues](https://github.com/chunkai4u/gelab-androidworld-project/issues)
+[📋 中文待辦](docs/ISSUES.zh-TW.md) · [🤝 中文協作指南](docs/CONTRIBUTING.zh-TW.md) · [GitHub Issues](https://github.com/chunkai4u/gelab-androidworld-project/issues)
 
 ## 已經有的功能
 
 - 在 Runpod 上執行 GELab-Zero-4B-preview，包含部署、重建服務與 SSH 連線程式。
 - AndroidWorld agent 轉接程式、任務執行器、步數上限、限定 App 清單、截圖與動作紀錄、官方成功判定，以及模擬器錄影。
 - 三個任務的啟動入口：`SystemWifiTurnOn`、`MarkorCreateNote`、`MarkorCreateNoteAndSms`。
-- 一次可現場重現的 Wi-Fi 開發測試：**5 個動作，官方分數 1.0／PASS，71.16 秒影片**。影片、最終畫面、trajectory 和結果在 [examples/live-wifi-pass](examples/live-wifi-pass)。
-- [展示與驗證指南](LIVE_DEMO.zh-TW.md)，包含現場講稿、code 導覽與備案。
+- 一次可現場重現的 Wi-Fi 開發測試：**5 個動作，官方分數 1.0／PASS，71.16 秒影片**。影片、最終畫面、trajectory 和結果在 [results/development/live-wifi-pass](results/development/live-wifi-pass)。
+- [展示與驗證指南](docs/LIVE_DEMO.zh-TW.md)，包含現場講稿、code 導覽與備案。
 
 ## 還沒完成的部分
 
@@ -26,18 +26,21 @@ Wi-Fi 成功範例只驗證 `result.json` 所記錄的參考環境，不能把�
 
 | 路徑 | 用途 |
 |---|---|
-| `outputs/gelab-runpod/` | 雲端模型服務、私人連線程式與重建腳本 |
-| `outputs/androidworld-project/` | Mac 啟動器、agent、錄影、初始狀態備份及環境說明 |
-| `examples/live-wifi-pass/` | 最新錄影、trajectory、最終畫面與已移除私人路徑的官方判定結果 |
-| [ISSUES.zh-TW.md](ISSUES.zh-TW.md) | 下一步待辦與建議分工 |
+| `model/runpod/` | 模型（課程第一天）：雲端模型服務、私人連線程式與重建腳本 |
+| `harness/androidworld/` | Harness（課程第二、三天）：Mac 啟動器、agent、錄影、初始狀態備份及環境說明 |
+| `results/` | 評估（課程第四天）：`runs.csv` 每次測試一列；`development/` 放開發測試，`formal/` 放九次正式評估 |
+| `presentation/` | 簡報（課程第五天） |
+| `docs/` | 待辦、協作指南與展示指南（含中文版） |
 
-目前保留 `outputs/` 資料夾結構，因為啟動器會依此找到本機的 `work/` 目錄。調整資料夾位置時，也需要修改程式裡的路徑。
+資料夾依課程的一週安排。課程概念與程式位置的完整對照，請看英文 [README](README.md) 的 "Where each harness part lives"。
+
+`harness/androidworld/` 與 `model/runpod/` 都位於第二層，因為程式依此找到 repository 根目錄的 `work/`。移動資料夾時請保持這個深度。
 
 ## 組員怎麼配合
 
 **不用每個人都安裝 AndroidWorld。** 所有人都可以先下載程式、閱讀紀錄與文件。初期由一位組員操作主要測試機，環境穩定後再準備一台備援機。其他人可以負責 agent、模型服務、失敗分析或簡報。
 
-每個待辦使用自己的分支，透過 pull request 審查修改。每次要納入報告的實驗，都記錄程式版本、模型、任務種子與環境設定。詳細流程請看 [中文協作指南](CONTRIBUTING.zh-TW.md)。
+每個待辦使用自己的分支，透過 pull request 審查修改。每次要納入報告的實驗，都記錄程式版本、模型、任務種子與環境設定。詳細流程請看 [中文協作指南](docs/CONTRIBUTING.zh-TW.md)。
 
 只有實際操作實驗的人需要完整模擬器與 AndroidWorld。這份程式目前不是跨電腦的一鍵安裝包：啟動器以 Intel Mac 為目標，預期未納入 Git 的 `work/` 目錄裡已有依賴、App 初始狀態、SDK／AVD 及 Python 環境。重建環境前，請先閱讀各元件的 README。
 
@@ -49,4 +52,4 @@ YADB 工具來自 GELab-Zero 官方程式，版本為 `7b619f6f67d2b1101021fc453
 
 最新 Wi-Fi 影片很小（約 0.6 MB），所以和對應 verifier evidence 一起提交；大型影片仍應放在共用儲存空間。
 
-這是私人的團隊 repository。目前尚未邀請協作者；工作進度集中在 [GitHub Issues](https://github.com/chunkai4u/gelab-androidworld-project/issues)。
+這是私人的團隊 repository。工作進度集中在 [GitHub Issues](https://github.com/chunkai4u/gelab-androidworld-project/issues)。

@@ -1,0 +1,3 @@
+task,run,label,model,observation,grounding,steps,step_budget,seconds,verifier,failure_class,evidence,note
+SystemWifiTurnOn,1,development,GELab-Zero-4B-preview,screenshot,normalized coordinates,6,15,76.27,PASS,,development/wifi-pass,Historical smoke test on an earlier emulator configuration; recording stored outside Git
+SystemWifiTurnOn,1,live-recovery-test,GELab-Zero-4B-preview,screenshot,normalized coordinates,5,15,71.16,PASS,,development/live-wifi-pass,Live demo run on the reference configuration; recording included

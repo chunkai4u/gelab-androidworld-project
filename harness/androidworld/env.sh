@@ -8,7 +8,7 @@ export ANDROID_SDK_ROOT="$ANDROID_HOME"
 export ANDROID_USER_HOME="$ANDROID_RUNTIME_DIR/android-user"
 export ANDROID_AVD_HOME="$ANDROID_RUNTIME_DIR/android-avd"
 export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_RUNTIME_DIR/android-venv/bin:$PATH"
-export PYTHONPATH="$ANDROID_RUNTIME_DIR/android_world:$TASK_DIR/outputs/gelab-runpod${PYTHONPATH:+:$PYTHONPATH}"
+export PYTHONPATH="$ANDROID_RUNTIME_DIR/android_world:$TASK_DIR/model/runpod${PYTHONPATH:+:$PYTHONPATH}"
 export GRPC_VERBOSITY=ERROR
 unset GRPC_TRACE
 export PYTHONUNBUFFERED=1

@@ -1,6 +1,6 @@
 # 接手待辦
 
-[English](ISSUES.md) | **繁體中文** · [回到專案首頁](README.zh-TW.md)
+[English](ISSUES.md) | **繁體中文** · [回到專案首頁](../README.zh-TW.md)
 
 1. **[P0：讓模擬器穩定](https://github.com/chunkai4u/gelab-androidworld-project/issues/1)｜環境負責人**  
    排查 Settings／System UI 反覆無回應的問題。準備好的 3 GB 記憶體、SwiftShader 與原生 540×1200 設定尚未完成開機測試。先確認 App 能正常開啟、重複輸入保持順暢，再進行模型實驗。

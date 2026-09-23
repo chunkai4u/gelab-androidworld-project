@@ -1,6 +1,6 @@
 # 團隊協作指南
 
-[English](CONTRIBUTING.md) | **繁體中文** · [回到專案首頁](README.zh-TW.md)
+[English](CONTRIBUTING.md) | **繁體中文** · [回到專案首頁](../README.zh-TW.md)
 
 1. 從 [Issues](https://github.com/chunkai4u/gelab-androidworld-project/issues) 挑選工作，先確認負責人。
 2. 建立自己的分支，例如 `fix/emulator-stability` 或 `fix/text-input`。

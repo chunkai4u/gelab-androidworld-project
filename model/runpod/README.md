@@ -12,7 +12,7 @@ The official GELab-Zero-4B-preview model loaded on CUDA using Transformers 4.57.
 - Synthetic Wi-Fi screen test: `action:CLICK point:840,182` (normalized 0–1000 coordinates). This maps inside the depicted Wi-Fi switch.
 - Local Mac → authenticated Runpod SSH gateway → model request → response.
 - Initial inference 1.82 seconds; warm inference 0.77 seconds. These times exclude network/SSH overhead.
-- The synthetic test is not an AndroidWorld benchmark result. AndroidWorld and the emulator are now installed; integration status and actual run artifacts are in the sibling `androidworld-project` folder.
+- The synthetic test is not an AndroidWorld benchmark result. AndroidWorld and the emulator are now installed; integration status and actual run artifacts are in the `harness/androidworld/` folder.
 
 ## Files
 
@@ -35,7 +35,7 @@ The official GELab-Zero-4B-preview model loaded on CUDA using Transformers 4.57.
 
 SSH private key is intentionally excluded from this deliverable. On this Mac it is stored in the task's `work/runpod/gelab_ed25519`, with restricted file permissions. `client.py` uses it by default. Other members should use their own authorized keys via `GELAB_SSH_KEY` and their own known-host configuration; never commit or share private keys. The SSH gateway transport works, but direct TCP SSH timed out on this network. The current client opens a separate SSH session per request; later integration can optimize connection reuse.
 
-The model service produces an action string. The sibling `androidworld-project` folder implements the adapter, app allowlist, step budgets, recording, and official task verifier integration. See its README for limits and environment modifications.
+The model service produces an action string. The `harness/androidworld/` folder implements the adapter, app allowlist, step budgets, recording, and official task verifier integration. See its README for limits and environment modifications.
 
 ## Sources
 

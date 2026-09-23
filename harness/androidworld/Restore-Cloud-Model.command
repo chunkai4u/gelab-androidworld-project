@@ -2,10 +2,10 @@
 set -e
 source "$(dirname "$0")/env.sh"
 printf 'Start the existing Pod in Runpod first. This restores its model service.\n'
-if python "$TASK_DIR/outputs/gelab-runpod/client.py" >/dev/null 2>&1; then
+if python "$TASK_DIR/model/runpod/client.py" >/dev/null 2>&1; then
   echo 'Cloud model is already ready.'
 else
-  python "$TASK_DIR/outputs/gelab-runpod/bootstrap.py"
+  python "$TASK_DIR/model/runpod/bootstrap.py"
   python - <<'PY'
 import client,time
 print('Loading cloud model; this can take several minutes.',flush=True)
