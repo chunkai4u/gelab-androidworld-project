@@ -8,7 +8,7 @@ PROJECT = pathlib.Path(__file__).resolve().parent
 VERSION = "2.1"
 COMMANDS = (
     ("SystemWifiTurnOn", 15, ("wifi", "wi-fi", "無線網路", "開啟網路", "打开网络"), "Turn Wi-Fi on"),
-    ("SimpleCalendarAddOneEvent", 30, ("calendar", "event", "行事曆", "行事历", "活動", "活动"), "Create a calendar event"),
+        ("SimpleCalendarAddOneEvent", 30, ("calendar", "event", "calendario", "evento", "行事曆", "行事历", "活動", "活动"), "Create a calendar event"),
 )
 
 def understand(text: str):
@@ -35,37 +35,44 @@ def chinese_number(value: str) -> int:
 
 def freeform_goal(text: str) -> str:
     lowered = text.lower()
-    person = re.search(r"(?:with|跟)\s*([a-z]+)", lowered)
+    person = re.search(r"(?:with|con|跟)\s*([a-záéíóúüñ]+)", lowered)
     month_day = re.search(r"(\d{1,2})\s*月\s*(\d{1,2})\s*(?:號|日)?", text)
     chinese_month_day = re.search(r"([一二三四五六七八九十]+)月([一二三四五六七八九十]+)(?:號|日)?", text)
     english_month_day = re.search(r"\b([a-z]+)\s+(\d{1,2})\b", lowered)
+    spanish_months={"enero":1,"febrero":2,"marzo":3,"abril":4,"mayo":5,"junio":6,"julio":7,"agosto":8,"septiembre":9,"octubre":10,"noviembre":11,"diciembre":12}
+    spanish_date = re.search(r"(?:el\s+)?(primero|\d{1,2})\s+de\s+(" + "|".join(spanish_months) + r")", lowered)
     hour = re.search(r"\b(\d{1,2})\s*(?:pm|p\.m\.)\b", lowered)
     if hour is None:
         hour = re.search(r"(?:下午|晚上)\s*(\d{1,2})\s*(?:點|时|時)?", text)
     chinese_hour = re.search(r"(?:下午|晚上)\s*([一二三四五六七八九十]+)\s*(?:點|时|時)", text)
-    duration_match = re.search(r"\b(\d+)\s*(?:minutes?|mins?)\b", lowered)
-    duration = int(duration_match.group(1)) if duration_match else (60 if any(phrase in lowered for phrase in ("one hour", "an hour", "1 hour")) or "一個小時" in text or "一个小时" in text else 30 if "半小時" in text or "半小时" in text else None)
+    spanish_hour = re.search(r"a\s+las\s+(\d{1,2})(?::(\d{2}))?", lowered)
+    duration_match = re.search(r"\b(\d+)\s*(?:minutes?|mins?|minutos)\b", lowered)
+    duration = int(duration_match.group(1)) if duration_match else (60 if any(phrase in lowered for phrase in ("one hour", "an hour", "1 hour", "una hora")) or "一個小時" in text or "一个小时" in text else 30 if "半小時" in text or "半小时" in text or "media hora" in lowered else None)
     details=[]
     if month_day:
         details.append(f"Date: {month_day.group(1)}/{month_day.group(2)} in the emulator's current year")
     elif chinese_month_day:
         details.append(f"Date: {chinese_number(chinese_month_day.group(1))}/{chinese_number(chinese_month_day.group(2))} in the emulator's current year")
+    elif spanish_date:
+        day = 1 if spanish_date.group(1) == "primero" else int(spanish_date.group(1))
+        details.append(f"Date: {spanish_months[spanish_date.group(2)]}/{day} in the emulator's current year")
     elif english_month_day:
         details.append(f"Date: {english_month_day.group(1).title()} {english_month_day.group(2)} in the emulator's current year")
     elif "today" in lowered or "今天" in text:
         details.append("Date: today, as displayed in the app")
-    if hour or chinese_hour:
-        raw_hour = int(hour.group(1)) if hour else chinese_number(chinese_hour.group(1))
-        start_hour = raw_hour + 12 if raw_hour < 12 else raw_hour
-        details.append(f"Start time: {start_hour:02d}:00 (24-hour clock)")
+    if hour or chinese_hour or spanish_hour:
+        raw_hour = int(hour.group(1)) if hour else chinese_number(chinese_hour.group(1)) if chinese_hour else int(spanish_hour.group(1))
+        start_hour = raw_hour + 12 if hour and raw_hour < 12 else raw_hour
+        start_minute = int(spanish_hour.group(2) or 0) if spanish_hour else 0
+        details.append(f"Start time: {start_hour:02d}:{start_minute:02d} (24-hour clock)")
         if duration:
-            end_minutes = start_hour * 60 + duration
+            end_minutes = start_hour * 60 + start_minute + duration
             suffix = " on the next day" if end_minutes >= 24 * 60 else " on the same date"
             details.append(f"End time: {(end_minutes // 60) % 24:02d}:{end_minutes % 60:02d} (24-hour clock){suffix}")
     elif duration:
         details.append(f"Duration: {duration} minutes")
     if person:
-        details.append(f"Title: Date with {person.group(1).title()}")
+        details.append(f"Title: Appointment with {person.group(1).title()}")
     return (
         "Open Simple Calendar Pro and create exactly one event. Set the upper date/time rows "
         "as the start and the lower date/time rows as the end. Use the exact 24-hour values "
