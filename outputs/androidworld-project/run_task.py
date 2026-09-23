@@ -1,10 +1,17 @@
-import argparse, datetime, json, os, pathlib, random, time, traceback
+import argparse, dataclasses, datetime, json, os, pathlib, random, time, traceback
 import numpy as np
 from absl import flags, logging
 from PIL import Image
 from recorder import Recorder
 
 TASKS=['SystemWifiTurnOn','SimpleCalendarAddOneEvent','MarkorCreateNote','MarkorCreateNoteAndSms']
+def _json_value(value):
+    """Preserve generated AndroidWorld task metadata without breaking runs."""
+    if dataclasses.is_dataclass(value): return dataclasses.asdict(value)
+    if isinstance(value, (datetime.date, datetime.datetime)): return value.isoformat()
+    return str(value)
+def _write_result(path, info):
+    path.write_text(json.dumps(info,ensure_ascii=False,indent=2,default=_json_value))
 def main():
     p=argparse.ArgumentParser(); p.add_argument('--task',choices=TASKS,default=TASKS[0]); p.add_argument('--runs',type=int,default=1); p.add_argument('--max-steps',type=int,default=20); p.add_argument('--seed',type=int,default=42); p.add_argument('--label',default='development'); p.add_argument('--user-command',default=None); args=p.parse_args()
     if not 1<=args.runs<=3 or not 1<=args.max_steps<=60: p.error('runs must be 1–3 and max-steps 1–60')
@@ -31,7 +38,7 @@ def main():
             env.reset(go_home=True); task.initialize_task(env)
             info={'task':args.task,'run':run,'seed':args.seed+run-1,'label':args.label,'goal':task.goal,'params':task.params,'model':'GELab-Zero-4B-preview','observation':'screenshot','grounding':'normalized coordinates','step_budget':args.max_steps,'verifier':'NOT_RUN','failure_class':None,'configuration':'mac-intel-api33-host-gpu-4gb-4core-540x1200'}
             if args.user_command: info['user_command']=args.user_command
-            (folder/'result.json').write_text(json.dumps(info,ensure_ascii=False,indent=2))
+            _write_result(folder/'result.json',info)
             print('TASK:',task.goal,'\nOUTPUT:',folder,flush=True)
             agent=GelabAgent(env,folder,args.max_steps); recording=Recorder(adb,folder).start(); start=time.time(); done=False
             try:
@@ -56,7 +63,7 @@ def main():
                     if recording.error: info['recording_warning']=recording.error; info['recording_incomplete']=True
                 except Exception as exc: info['recording_error']=str(exc)
                 info.update(steps=agent.count,seconds=round(time.time()-start,2))
-                (folder/'result.json').write_text(json.dumps(info,ensure_ascii=False,indent=2))
+                _write_result(folder/'result.json',info)
                 print('RESULT:',info['verifier'],flush=True)
                 print('VIDEO:',info.get('recording','Not saved: '+info.get('recording_error','unknown error')),flush=True)
                 task.tear_down(env)

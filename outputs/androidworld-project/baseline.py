@@ -3,7 +3,7 @@ import os,pathlib,subprocess
 from android_world.env import adb_utils
 from android_world.utils import app_snapshot
 
-APPS=('settings','markor','simple sms messenger')
+APPS=('settings','simple calendar pro','markor','simple sms messenger')
 REMOTE='/data/data/android_world/snapshots'
 def _run(*args,**kwargs):
     return subprocess.run([os.environ['ANDROID_SDK_ROOT']+'/platform-tools/adb','-s','emulator-5554',*args],check=True,timeout=180,**kwargs)
@@ -20,7 +20,7 @@ def capture(env):
     print('Clean app states backed up locally.',flush=True)
 def restore_if_missing(env):
     adb_utils.set_root_if_needed(env.controller)
-    packages=['com.android.settings','net.gsantner.markor','com.simplemobiletools.smsmessenger']
+    packages=['com.android.settings','com.simplemobiletools.calendar.pro','net.gsantner.markor','com.simplemobiletools.smsmessenger']
     check=' && '.join('[ -d '+REMOTE+'/'+p+' ]' for p in packages)
     status=_run('shell',check+' && echo ready || echo missing',capture_output=True,text=True).stdout.strip()
     if status=='ready': return
