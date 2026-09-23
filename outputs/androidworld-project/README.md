@@ -27,8 +27,11 @@ The cloud Pod must be running and its model service ready. The cloud setup lives
 | Level | Task | Action budget |
 |---|---|---:|
 | Warm-up | SystemWifiTurnOn | 15 |
+| Real work | SimpleCalendarAddOneEvent | 30 |
 | Real work | MarkorCreateNote | 25 |
 | Multi-app | MarkorCreateNoteAndSms | 35 |
+
+`SimpleCalendarAddOneEvent` has been added to the launcher and uses the AndroidWorld-pinned Simple Calendar Pro app. Run `Install-Simple-Calendar.command` once on the reference emulator before the first Calendar test. The app integration is installed and prepared, but it has not yet passed an end-to-end model run.
 
 Each menu selection runs one development attempt. The formal evaluation should run each task three times using a fixed configuration, retaining failures as well as successes. Do not count infrastructure smoke tests as formal evaluation runs.
 

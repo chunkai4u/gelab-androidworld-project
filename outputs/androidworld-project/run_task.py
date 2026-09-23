@@ -4,7 +4,7 @@ from absl import flags, logging
 from PIL import Image
 from recorder import Recorder
 
-TASKS=['SystemWifiTurnOn','MarkorCreateNote','MarkorCreateNoteAndSms']
+TASKS=['SystemWifiTurnOn','SimpleCalendarAddOneEvent','MarkorCreateNote','MarkorCreateNoteAndSms']
 def main():
     p=argparse.ArgumentParser(); p.add_argument('--task',choices=TASKS,default=TASKS[0]); p.add_argument('--runs',type=int,default=1); p.add_argument('--max-steps',type=int,default=20); p.add_argument('--seed',type=int,default=42); p.add_argument('--label',default='development'); args=p.parse_args()
     if not 1<=args.runs<=3 or not 1<=args.max_steps<=60: p.error('runs must be 1–3 and max-steps 1–60')
