@@ -1,0 +1,6 @@
+.env
+*.pem
+*ed25519*
+known_hosts
+__pycache__/
+model/
