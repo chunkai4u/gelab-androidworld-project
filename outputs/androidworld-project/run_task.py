@@ -32,7 +32,8 @@ def main():
     try:
         for run in range(1,args.runs+1):
             random.seed(args.seed+run-1); np.random.seed(args.seed+run-1)
-            folder=root/(datetime.datetime.now().strftime('%Y%m%d-%H%M%S')+'-'+args.task+'-'+str(run)); folder.mkdir()
+            run_name='FreeformCalendar' if args.freeform_goal else args.task
+            folder=root/(datetime.datetime.now().strftime('%Y%m%d-%H%M%S')+'-'+run_name+'-'+str(run)); folder.mkdir()
             task=None
             if args.freeform_goal:
                 goal=args.freeform_goal
