@@ -69,6 +69,13 @@ def main():
                 for _ in range(args.max_steps):
                     result=agent.step(goal); print('STEP',agent.count,result.data['parsed_action'],result.data['fields'],flush=True)
                     if result.done: done=True; break
+                    if task is None:
+                        verified,details=_verify_freeform_calendar(goal,env)
+                        if verified:
+                            done=True
+                            info.update(completion_source='calendar_database',verification_details=details)
+                            print('Calendar database matches the requested event; stopping agent.',flush=True)
+                            break
                 time.sleep(1)
                 Image.fromarray(env.get_state().pixels).save(folder/'final.png')
                 if task is None:
