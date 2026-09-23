@@ -31,8 +31,11 @@ The cloud Pod must be running and its model service ready. The cloud setup lives
 | Real work | SimpleCalendarAddOneEvent | 30 |
 | Real work | MarkorCreateNote | 25 |
 | Multi-app | MarkorCreateNoteAndSms | 35 |
+| Multi-app | ExpenseAddMultipleFromMarkor | 45 |
 
 `SimpleCalendarAddOneEvent` has been added to the launcher and uses the AndroidWorld-pinned Simple Calendar Pro app. Run `Install-Simple-Calendar.command` once on a fresh reference emulator before the first Calendar test. Calendar task metadata is serialized into `result.json`, and its clean app snapshot is included in the local baseline. The app integration is installed and prepared, but it has not yet passed an end-to-end model run.
+
+`ExpenseAddMultipleFromMarkor` has been added to the launcher and uses the AndroidWorld-pinned Pro Expense app. Run `Install-Pro-Expense.command` once on the reference emulator before the first Expense test. It uses AndroidWorld's own app setup, which needs the UI tree to click through Pro Expense's first-run screens; the task runner uses screenshot-only mode and cannot do this itself. The verifier compares the expense database before and after each run, so no clean app snapshot is required. The task writes 102 transactions to `my_expenses.txt`, of which two are marked reimbursable, and expects exactly those two in Pro Expense. The 45-action budget is a development value and has not been tested.
 
 Each menu selection runs one development attempt. The formal evaluation should run each task three times using a fixed configuration, retaining failures as well as successes. Do not count infrastructure smoke tests as formal evaluation runs.
 

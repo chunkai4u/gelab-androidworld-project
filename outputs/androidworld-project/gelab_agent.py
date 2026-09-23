@@ -5,9 +5,9 @@ from android_world.env.json_action import JSONAction
 from android_world.env import adb_utils, actuation
 import client
 
-APP_ALIASES={'settings':'settings','设置':'settings','設定':'settings','markor':'markor','notes':'markor','simple calendar pro':'simple calendar pro','simple calendar':'simple calendar pro','calendar':'simple calendar pro','simple sms messenger':'simple sms messenger','sms':'simple sms messenger','messages':'simple sms messenger','短信':'simple sms messenger'}
-ALLOWED_PACKAGES=('com.android.settings','net.gsantner.markor','com.simplemobiletools.calendar.pro','com.simplemobiletools.smsmessenger','com.google.android.apps.nexuslauncher','com.android.launcher','com.android.systemui','com.android.permissioncontroller','com.google.android.permissioncontroller','com.example.androidworld')
-APP_ALIASES.update({'com.android.settings':'settings','net.gsantner.markor':'markor','com.simplemobiletools.calendar.pro':'simple calendar pro','com.simplemobiletools.smsmessenger':'simple sms messenger','sms messenger':'simple sms messenger'})
+APP_ALIASES={'settings':'settings','设置':'settings','設定':'settings','markor':'markor','notes':'markor','simple calendar pro':'simple calendar pro','simple calendar':'simple calendar pro','calendar':'simple calendar pro','simple sms messenger':'simple sms messenger','sms':'simple sms messenger','messages':'simple sms messenger','短信':'simple sms messenger','pro expense':'pro expense','expense':'pro expense','arduia pro expense':'pro expense'}
+ALLOWED_PACKAGES=('com.android.settings','net.gsantner.markor','com.simplemobiletools.calendar.pro','com.simplemobiletools.smsmessenger','com.arduia.expense','com.google.android.apps.nexuslauncher','com.android.launcher','com.android.systemui','com.android.permissioncontroller','com.google.android.permissioncontroller','com.example.androidworld')
+APP_ALIASES.update({'com.android.settings':'settings','net.gsantner.markor':'markor','com.simplemobiletools.calendar.pro':'simple calendar pro','com.simplemobiletools.smsmessenger':'simple sms messenger','sms messenger':'simple sms messenger','com.arduia.expense':'pro expense'})
 def parse_action(text):
     # Match upstream's tab-separated format; note contents may contain newlines.
     body=re.split(r'</\s*(?:THINK|TINK)\s*>',text,flags=re.I)[-1].strip()
@@ -52,7 +52,8 @@ class GelabAgent(EnvironmentInteractingAgent):
             return AgentInteractionResult(False,record)
         foreground=self.env.foreground_activity_name.lower()
         if not any(p in foreground for p in ALLOWED_PACKAGES): raise RuntimeError('Blocked foreground app: '+foreground)
-        # No browser, store, finance or payment apps are allowed in this project.
+        # No browser, store, banking or payment apps are allowed in this project.
+        # Pro Expense is the offline AndroidWorld expense log, with no accounts or payments.
         # Also stop before interacting with a visible purchase/payment flow.
         visible=''  # Screenshot-only mode has no UI text tree.
         if re.search(r'\b(pay now|checkout|buy now|purchase|confirm payment)\b|付款|支付|購買',visible,re.I):
