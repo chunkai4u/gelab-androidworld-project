@@ -63,7 +63,12 @@ def main():
                 info={'task':args.task,'run':run,'seed':args.seed+run-1,'label':args.label,'goal':goal,'params':task.params,'model':'GELab-Zero-4B-preview','observation':'screenshot','grounding':'normalized coordinates','step_budget':args.max_steps,'verifier':'NOT_RUN','failure_class':None,'configuration':'mac-intel-api33-host-gpu-4gb-4core-540x1200','mode':'verified_task'}
             if args.user_command: info['user_command']=args.user_command
             _write_result(folder/'result.json',info)
-            print('TASK:',goal,'\nOUTPUT:',folder,flush=True)
+            if task is None:
+                print('REQUEST:',args.user_command or goal,flush=True)
+                print('MODE: free-form Calendar with database verification',flush=True)
+            else:
+                print('TASK:',goal,flush=True)
+            print('OUTPUT:',folder,flush=True)
             agent=GelabAgent(env,folder,args.max_steps); recording=Recorder(adb,folder).start(); start=time.time(); done=False
             try:
                 for _ in range(args.max_steps):

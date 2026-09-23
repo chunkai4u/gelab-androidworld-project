@@ -2,7 +2,7 @@
 
 **English** | [🌐 繁體中文](README.zh-TW.md)
 
-Status: a working live Wi-Fi prototype was verified on 2026-09-23. This repository is not a completed benchmark submission.
+Status: Wi-Fi has an official AndroidWorld PASS, and a structured Calendar demo has a database-verified custom PASS. This repository is not a completed benchmark submission.
 
 ## What exists
 
@@ -10,11 +10,12 @@ Status: a working live Wi-Fi prototype was verified on 2026-09-23. This reposito
 - An AndroidWorld agent adapter, task runners, step budgets, a limited app allowlist, observation/action logs, official verifier integration, and emulator video recording.
 - Launchers for SystemWifiTurnOn, MarkorCreateNote, and MarkorCreateNoteAndSms.
 - A live Wi-Fi development run: 5 actions, official score 1.0/PASS, 71.16 seconds of video. The video, final screenshot, trace, and result are in [`examples/live-wifi-pass`](examples/live-wifi-pass/).
+- A structured Calendar demo: 16 actions, verified against the Simple Calendar Pro database. Its video and compact result are in [`examples/calendar-demo-pass`](examples/calendar-demo-pass/).
 - A [live demo and verification guide](LIVE_DEMO.md), including a concise code tour and fallback plan.
 
 ## What is not finished
 
-The Intel Mac emulator has previously shown Settings/System UI ANRs. Markor has not passed end to end. The SMS composite task has not been tested. The YADB input adapter remains unverified end to end. Three runs per task (nine formal runs) have not started.
+The next implementation task is `ExpenseAddMultipleFromMarkor`, which reads reimbursable transactions from Markor and records them in Pro Expense. Formal repeated evaluation has not started.
 
 The successful Wi-Fi example validates the reference configuration recorded in its result file. Do not use development attempts to calculate a formal success rate.
 

@@ -1,0 +1,17 @@
+{
+  "task": "FreeformCalendar",
+  "model": "GELab-Zero-4B-preview",
+  "user_command": "Create exactly one event in Simple Calendar Pro. Date: 10/1 Start time: 18:00 End time: 19:00 Title: Appointment with Hafid.",
+  "verifier": "CUSTOM_CALENDAR_PASS",
+  "score": 1.0,
+  "verification_scope": "freeform Calendar database",
+  "completion_source": "calendar_database",
+  "matched_event": {
+    "title": "Appointment with Hafid",
+    "start": "2023-10-01T18:00:00+00:00",
+    "end": "2023-10-01T19:00:00+00:00"
+  },
+  "steps": 16,
+  "seconds": 204.2,
+  "recording": "recording.mp4"
+}
