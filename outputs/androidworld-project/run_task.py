@@ -1,4 +1,4 @@
-import argparse, dataclasses, datetime, json, os, pathlib, random, time, traceback
+import argparse, dataclasses, datetime, json, os, pathlib, random, re, time, traceback
 import numpy as np
 from absl import flags, logging
 from PIL import Image
@@ -12,6 +12,21 @@ def _json_value(value):
     return str(value)
 def _write_result(path, info):
     path.write_text(json.dumps(info,ensure_ascii=False,indent=2,default=_json_value))
+def _verify_freeform_calendar(goal, env):
+    """Checks the Calendar database, so a model COMPLETE claim cannot be a false success."""
+    from android_world.task_evals.single.calendar import calendar_utils
+    from android_world.task_evals.utils import sqlite_schema_utils, sqlite_utils
+    title=re.search(r"Title: ([^.]+)",goal); start=re.search(r"Start time: (\d{2}):(\d{2})",goal); end=re.search(r"End time: (\d{2}):(\d{2})",goal); date=re.search(r"Date: (\d{1,2})/(\d{1,2})",goal)
+    rows=sqlite_utils.get_rows_from_remote_device(calendar_utils.EVENTS_TABLE,calendar_utils.DB_PATH,sqlite_schema_utils.CalendarEvent,env)
+    expected={'title':title.group(1).strip() if title else None,'start':start.groups() if start else None,'end':end.groups() if end else None,'date':date.groups() if date else None}
+    for row in rows:
+        start_at=datetime.datetime.fromtimestamp(row.start_ts,datetime.timezone.utc); end_at=datetime.datetime.fromtimestamp(row.end_ts,datetime.timezone.utc)
+        if expected['title'] and row.title != expected['title']: continue
+        if expected['date'] and (start_at.month,start_at.day) != tuple(map(int,expected['date'])): continue
+        if expected['start'] and (start_at.hour,start_at.minute) != tuple(map(int,expected['start'])): continue
+        if expected['end'] and (end_at.hour,end_at.minute) != tuple(map(int,expected['end'])): continue
+        return True, {'expected':expected,'matched_title':row.title,'matched_start':start_at.isoformat(),'matched_end':end_at.isoformat()}
+    return False, {'expected':expected,'rows_checked':len(rows)}
 def main():
     p=argparse.ArgumentParser(); p.add_argument('--task',choices=TASKS,default=TASKS[0]); p.add_argument('--runs',type=int,default=1); p.add_argument('--max-steps',type=int,default=20); p.add_argument('--seed',type=int,default=42); p.add_argument('--label',default='development'); p.add_argument('--user-command',default=None); p.add_argument('--freeform-goal',default=None); args=p.parse_args()
     if not 1<=args.runs<=3 or not 1<=args.max_steps<=60: p.error('runs must be 1–3 and max-steps 1–60')
@@ -57,7 +72,8 @@ def main():
                 time.sleep(1)
                 Image.fromarray(env.get_state().pixels).save(folder/'final.png')
                 if task is None:
-                    info.update(agent_reported_done=done)
+                    verified,details=_verify_freeform_calendar(goal,env)
+                    info.update(agent_reported_done=done,verifier='CUSTOM_CALENDAR_PASS' if verified else 'CUSTOM_CALENDAR_FAIL',score=1.0 if verified else 0.0,verification_scope='freeform Calendar database',verification_details=details)
                     if not done: info['termination_reason']='step_budget'
                 else:
                     score=float(task.is_successful(env)); info.update(verifier='PASS' if score==1 else 'FAIL',score=score,agent_reported_done=done)
