@@ -1,0 +1,5 @@
+{"step": 1, "model_response": {"output": "action:AWAKE\\tvalue:Settings", "seconds": 0.68, "model": "GELab-Zero-4B-preview"}, "parsed_action": "AWAKE", "fields": {"action": "AWAKE", "value": "Settings"}}
+{"step": 2, "model_response": {"output": "action:CLICK\\tpoint:388,315\\n\\n", "seconds": 0.86, "model": "GELab-Zero-4B-preview"}, "parsed_action": "CLICK", "fields": {"action": "CLICK", "point": "388,315"}}
+{"step": 3, "model_response": {"output": "action:CLICK\\tpoint:263,290\\n\\n", "seconds": 0.84, "model": "GELab-Zero-4B-preview"}, "parsed_action": "CLICK", "fields": {"action": "CLICK", "point": "263,290"}}
+{"step": 4, "model_response": {"output": "action:CLICK\\tpoint:887,372\\n\\n", "seconds": 0.83, "model": "GELab-Zero-4B-preview"}, "parsed_action": "CLICK", "fields": {"action": "CLICK", "point": "887,372"}}
+{"step": 5, "model_response": {"output": "action:COMPLETE\\tvalue:任务完成\\n", "seconds": 0.64, "model": "GELab-Zero-4B-preview"}, "parsed_action": "COMPLETE", "fields": {"action": "COMPLETE", "value": "任务完成"}}

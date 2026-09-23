@@ -1,0 +1,22 @@
+{
+  "task": "SystemWifiTurnOn",
+  "run": 1,
+  "seed": 42,
+  "label": "live-recovery-test",
+  "goal": "Turn wifi on.",
+  "params": {
+    "on_or_off": "on"
+  },
+  "model": "GELab-Zero-4B-preview",
+  "observation": "screenshot",
+  "grounding": "normalized coordinates",
+  "step_budget": 15,
+  "verifier": "PASS",
+  "failure_class": null,
+  "configuration": "mac-intel-api33-host-gpu-4gb-4core-540x1200",
+  "score": 1.0,
+  "agent_reported_done": true,
+  "recording": "recording.mp4",
+  "steps": 5,
+  "seconds": 71.16
+}

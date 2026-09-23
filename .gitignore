@@ -10,6 +10,7 @@ __pycache__/
 known_hosts
 model/
 *.mp4
+!examples/live-wifi-pass/recording.mp4
 *.zip
 *.qcow2
 *.img

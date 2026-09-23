@@ -6,7 +6,8 @@ else
   python - <<'PY'
 import os,subprocess
 with open(os.environ['ANDROID_HOME']+'/../emulator.log','a') as log:
-    subprocess.Popen([os.environ['ANDROID_HOME']+'/emulator/emulator','-avd','AndroidWorldAvd','-port','5554','-grpc','8554','-no-snapshot','-no-boot-anim','-no-metrics','-gpu','swiftshader_indirect','-feature','-Vulkan','-memory','3072','-cores','2'],stdin=subprocess.DEVNULL,stdout=log,stderr=log,start_new_session=True)
+    # Configuration verified by the latest live Wi-Fi PASS on the reference Mac.
+    subprocess.Popen([os.environ['ANDROID_HOME']+'/emulator/emulator','-avd','AndroidWorldAvd','-port','5554','-grpc','8554','-no-snapshot','-no-boot-anim','-no-metrics','-gpu','host','-feature','-Vulkan','-memory','4096','-cores','4'],stdin=subprocess.DEVNULL,stdout=log,stderr=log,start_new_session=True)
 PY
   echo 'Starting AndroidWorld emulator. First boot can take several minutes.'
 fi

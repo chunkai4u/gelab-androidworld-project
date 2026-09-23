@@ -2,26 +2,27 @@
 
 **English** | [🌐 繁體中文](README.zh-TW.md)
 
-Status: work paused on 2026-09-23. This repository is a development prototype, not a completed benchmark submission.
+Status: a working live Wi-Fi prototype was verified on 2026-09-23. This repository is not a completed benchmark submission.
 
 ## What exists
 
 - A private Runpod model service for GELab-Zero-4B-preview, plus bootstrap and SSH client scripts.
 - An AndroidWorld agent adapter, task runners, step budgets, a limited app allowlist, observation/action logs, official verifier integration, and emulator video recording.
 - Launchers for SystemWifiTurnOn, MarkorCreateNote, and MarkorCreateNoteAndSms.
-- One verified Wi-Fi development run: 6 steps, official score 1.0/PASS, approximately 71 seconds of video. A small evidence example is in `examples/wifi-pass`.
+- A live Wi-Fi development run: 5 actions, official score 1.0/PASS, 71.16 seconds of video. The video, final screenshot, trace, and result are in [`examples/live-wifi-pass`](examples/live-wifi-pass/).
+- A [live demo and verification guide](LIVE_DEMO.md), including a concise code tour and fallback plan.
 
 ## What is not finished
 
-The Intel Mac emulator has recurring Settings/System UI ANRs. Markor has not passed end to end. The SMS composite task has not been tested. The latest software-rendering configuration and official YADB input adapter remain unverified. Three runs per task (nine formal runs) have not started.
+The Intel Mac emulator has previously shown Settings/System UI ANRs. Markor has not passed end to end. The SMS composite task has not been tested. The YADB input adapter remains unverified end to end. Three runs per task (nine formal runs) have not started.
 
-The successful Wi-Fi example used an earlier environment configuration. Do not claim it validates all code/settings currently in this prototype, or use development attempts to calculate a formal success rate.
+The successful Wi-Fi example validates the reference configuration recorded in its result file. Do not use development attempts to calculate a formal success rate.
 
 ## Layout
 
 - `outputs/gelab-runpod/`: cloud model service, private client, and rebuild scripts.
 - `outputs/androidworld-project/`: Mac launchers, agent, recording, baseline handling, and environment notes.
-- `examples/wifi-pass/`: sanitized development evidence; video is stored separately.
+- `examples/live-wifi-pass/`: latest video, trace, final screenshot, and sanitized official verifier result.
 - `ISSUES.md`: the next concrete work items.
 
 The `outputs/` layout is retained because the existing launchers resolve the local `work/` directory relative to it. Do not flatten these folders without adjusting paths.
@@ -36,6 +37,6 @@ The YADB helper comes from the official GELab-Zero repository at commit `7b619f6
 
 ## Access and large files
 
-No SSH private key, account credential, model weight, emulator image, or virtual environment is included. Runpod connection identifiers are placeholders in this bundle. Each cloud user needs their own authorized SSH key and host configuration; do not share the reference Mac's private key. Store videos in shared storage and link them from run summaries instead of committing them to Git.
+No SSH private key, account credential, model weight, emulator image, or virtual environment is included. Runpod connection identifiers are placeholders in this bundle. Each cloud user needs their own authorized SSH key and host configuration; do not share the reference Mac's private key. The checked-in Wi-Fi recording is intentionally small (about 0.6 MB) and is included with its verifier evidence.
 
 This is a private team repository. Track work in [GitHub Issues](https://github.com/chunkai4u/gelab-androidworld-project/issues). Collaborators have not been invited yet.

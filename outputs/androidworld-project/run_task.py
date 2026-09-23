@@ -29,7 +29,7 @@ def main():
             task=catalog[args.task](catalog[args.task].generate_random_params())
             print('Preparing a clean task state; this can take a few minutes on this Mac.',flush=True)
             env.reset(go_home=True); task.initialize_task(env)
-            info={'task':args.task,'run':run,'seed':args.seed+run-1,'label':args.label,'goal':task.goal,'params':task.params,'model':'GELab-Zero-4B-preview','observation':'screenshot','grounding':'normalized coordinates','step_budget':args.max_steps,'verifier':'NOT_RUN','failure_class':None,'configuration':'mac-intel-api33-swiftshader-3gb-yadb-candidate'}
+            info={'task':args.task,'run':run,'seed':args.seed+run-1,'label':args.label,'goal':task.goal,'params':task.params,'model':'GELab-Zero-4B-preview','observation':'screenshot','grounding':'normalized coordinates','step_budget':args.max_steps,'verifier':'NOT_RUN','failure_class':None,'configuration':'mac-intel-api33-host-gpu-4gb-4core-540x1200'}
             (folder/'result.json').write_text(json.dumps(info,ensure_ascii=False,indent=2))
             print('TASK:',task.goal,'\nOUTPUT:',folder,flush=True)
             agent=GelabAgent(env,folder,args.max_steps); recording=Recorder(adb,folder).start(); start=time.time(); done=False
