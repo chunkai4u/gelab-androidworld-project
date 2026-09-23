@@ -6,7 +6,7 @@ from recorder import Recorder
 
 TASKS=['SystemWifiTurnOn','SimpleCalendarAddOneEvent','MarkorCreateNote','MarkorCreateNoteAndSms']
 def main():
-    p=argparse.ArgumentParser(); p.add_argument('--task',choices=TASKS,default=TASKS[0]); p.add_argument('--runs',type=int,default=1); p.add_argument('--max-steps',type=int,default=20); p.add_argument('--seed',type=int,default=42); p.add_argument('--label',default='development'); args=p.parse_args()
+    p=argparse.ArgumentParser(); p.add_argument('--task',choices=TASKS,default=TASKS[0]); p.add_argument('--runs',type=int,default=1); p.add_argument('--max-steps',type=int,default=20); p.add_argument('--seed',type=int,default=42); p.add_argument('--label',default='development'); p.add_argument('--user-command',default=None); args=p.parse_args()
     if not 1<=args.runs<=3 or not 1<=args.max_steps<=60: p.error('runs must be 1–3 and max-steps 1–60')
     flags.FLAGS(['runner']); logging.set_verbosity(logging.WARNING)
     from android_world import registry
@@ -30,6 +30,7 @@ def main():
             print('Preparing a clean task state; this can take a few minutes on this Mac.',flush=True)
             env.reset(go_home=True); task.initialize_task(env)
             info={'task':args.task,'run':run,'seed':args.seed+run-1,'label':args.label,'goal':task.goal,'params':task.params,'model':'GELab-Zero-4B-preview','observation':'screenshot','grounding':'normalized coordinates','step_budget':args.max_steps,'verifier':'NOT_RUN','failure_class':None,'configuration':'mac-intel-api33-host-gpu-4gb-4core-540x1200'}
+            if args.user_command: info['user_command']=args.user_command
             (folder/'result.json').write_text(json.dumps(info,ensure_ascii=False,indent=2))
             print('TASK:',task.goal,'\nOUTPUT:',folder,flush=True)
             agent=GelabAgent(env,folder,args.max_steps); recording=Recorder(adb,folder).start(); start=time.time(); done=False

@@ -17,6 +17,7 @@ On 2026-09-23, the cloud-connected agent completed `SystemWifiTurnOn` in 6 steps
 After resolving the pending environment issues below, double-click `Start-Project.command` in Finder and choose a task. The run automatically records the emulator and saves its results under `runs/`. Do not interact with the emulator while the agent is running.
 
 - `Run-WiFi-and-Record.command`: start one Wi-Fi development run directly.
+- `Chat-With-Android.command`: open a terminal chat. It recognizes English or Chinese Wi-Fi and calendar-event requests, starts the matching AndroidWorld task, then records the original request in `result.json`. It uses the generated official task details so the result remains verifier-scored.
 - `Record-Screen.command`: record only the emulator; press Enter to stop and save. This does not run an agent or produce a benchmark score.
 - `start-emulator.command`: open the emulator.
 
