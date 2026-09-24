@@ -4,7 +4,13 @@ from absl import flags, logging
 from PIL import Image
 from recorder import Recorder
 
-TASKS=['SystemWifiTurnOn','SimpleCalendarAddOneEvent','MarkorCreateNote','MarkorCreateNoteAndSms']
+TASKS=[
+    'SystemWifiTurnOn',
+    'SimpleCalendarAddOneEvent',
+    'MarkorCreateNote',
+    'MarkorCreateNoteAndSms',
+    'ExpenseAddMultipleFromMarkor',
+]
 def _json_value(value):
     """Preserve generated AndroidWorld task metadata without breaking runs."""
     if dataclasses.is_dataclass(value): return dataclasses.asdict(value)
