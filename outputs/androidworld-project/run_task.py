@@ -4,7 +4,18 @@ from absl import flags, logging
 from PIL import Image
 from recorder import Recorder
 
-TASKS=['SystemWifiTurnOn','SimpleCalendarAddOneEvent','MarkorCreateNote','MarkorCreateNoteAndSms','ExpenseAddMultipleFromMarkor']
+TASKS=[
+    'SystemWifiTurnOn',
+    'SimpleCalendarAddOneEvent',
+    'MarkorCreateNote',
+    'MarkorCreateNoteAndSms',
+    'ExpenseAddMultipleFromMarkor',
+]
+def _require_pro_expense(env):
+    """Pro Expense first-run setup needs the UI tree, which this screenshot-only runner does not read."""
+    from android_world.task_evals.utils import sqlite_utils
+    if not sqlite_utils.table_exists('expense','/data/data/com.arduia.expense/databases/accounting.db',env):
+        raise SystemExit('Pro Expense is not set up on this emulator. Run Install-Pro-Expense.command once, then start the task again.')
 def _json_value(value):
     """Preserve generated AndroidWorld task metadata without breaking runs."""
     if dataclasses.is_dataclass(value): return dataclasses.asdict(value)
@@ -42,6 +53,7 @@ def main():
     env=load_environment(freeze_datetime=False)
     from baseline import restore_if_missing
     restore_if_missing(env)
+    if args.task.startswith('Expense') and not args.freeform_goal: _require_pro_expense(env)
     catalog=registry.TaskRegistry().get_registry(registry.TaskRegistry.ANDROID_WORLD_FAMILY)
     root=pathlib.Path(__file__).parent/'runs'; root.mkdir(exist_ok=True)
     try:
@@ -63,12 +75,24 @@ def main():
                 info={'task':args.task,'run':run,'seed':args.seed+run-1,'label':args.label,'goal':goal,'params':task.params,'model':'GELab-Zero-4B-preview','observation':'screenshot','grounding':'normalized coordinates','step_budget':args.max_steps,'verifier':'NOT_RUN','failure_class':None,'configuration':'mac-intel-api33-host-gpu-4gb-4core-540x1200','mode':'verified_task'}
             if args.user_command: info['user_command']=args.user_command
             _write_result(folder/'result.json',info)
-            print('TASK:',goal,'\nOUTPUT:',folder,flush=True)
+            if task is None:
+                print('REQUEST:',args.user_command or goal,flush=True)
+                print('MODE: free-form Calendar with database verification',flush=True)
+            else:
+                print('TASK:',goal,flush=True)
+            print('OUTPUT:',folder,flush=True)
             agent=GelabAgent(env,folder,args.max_steps); recording=Recorder(adb,folder).start(); start=time.time(); done=False
             try:
                 for _ in range(args.max_steps):
                     result=agent.step(goal); print('STEP',agent.count,result.data['parsed_action'],result.data['fields'],flush=True)
                     if result.done: done=True; break
+                    if task is None:
+                        verified,details=_verify_freeform_calendar(goal,env)
+                        if verified:
+                            done=True
+                            info.update(completion_source='calendar_database',verification_details=details)
+                            print('Calendar database matches the requested event; stopping agent.',flush=True)
+                            break
                 time.sleep(1)
                 Image.fromarray(env.get_state().pixels).save(folder/'final.png')
                 if task is None:
