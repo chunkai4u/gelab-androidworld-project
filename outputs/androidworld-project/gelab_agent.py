@@ -6,7 +6,7 @@ from android_world.env import adb_utils, actuation
 import client
 
 APP_ALIASES={'settings':'settings','设置':'settings','設定':'settings','markor':'markor','notes':'markor','simple calendar pro':'simple calendar pro','simple calendar':'simple calendar pro','calendar':'simple calendar pro','simple sms messenger':'simple sms messenger','sms':'simple sms messenger','messages':'simple sms messenger','短信':'simple sms messenger'}
-ALLOWED_PACKAGES=('com.android.settings','net.gsantner.markor','com.simplemobiletools.calendar.pro','com.simplemobiletools.smsmessenger','com.google.android.apps.nexuslauncher','com.android.launcher','com.android.systemui','com.android.permissioncontroller','com.google.android.permissioncontroller','com.example.androidworld')
+ALLOWED_PACKAGES=('com.android.settings','net.gsantner.markor','com.simplemobiletools.calendar.pro','com.simplemobiletools.smsmessenger','com.android.internal.app.chooseractivity','com.google.android.apps.nexuslauncher','com.android.launcher','com.android.systemui','com.android.permissioncontroller','com.google.android.permissioncontroller','com.example.androidworld')
 APP_ALIASES.update({'com.android.settings':'settings','net.gsantner.markor':'markor','com.simplemobiletools.calendar.pro':'simple calendar pro','com.simplemobiletools.smsmessenger':'simple sms messenger','sms messenger':'simple sms messenger'})
 def parse_action(text):
     # Match upstream's tab-separated format; note contents may contain newlines.

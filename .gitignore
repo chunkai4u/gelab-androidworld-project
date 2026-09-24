@@ -12,6 +12,7 @@ model/
 *.mp4
 !examples/live-wifi-pass/recording.mp4
 !examples/calendar-demo-pass/recording.mp4
+!examples/markor-sms-pass/recording.mp4
 *.zip
 *.qcow2
 *.img

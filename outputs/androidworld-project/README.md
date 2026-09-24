@@ -77,7 +77,7 @@ Text entry uses the YADB helper shipped in the official GELab-Zero repository, w
 
 1. Stabilize Android: Settings/System UI have produced recurring ANRs during longer runs.
 2. Verify the newly added YADB text adapter and Markor filename/content entry.
-3. Run `MarkorCreateNoteAndSms` end to end; its launcher exists but it is untested.
+3. Repeat `MarkorCreateNoteAndSms` for the required three-run evaluation. One official development run passed after allowing Android's built-in share chooser in the agent allowlist.
 4. Freeze one environment/adapter configuration, then run all three tasks three times and retain all outcomes.
 
 Do not combine the development/debug attempts into a formal success-rate claim.

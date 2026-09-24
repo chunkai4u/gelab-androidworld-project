@@ -2,7 +2,7 @@
 
 **English** | [🌐 繁體中文](README.zh-TW.md)
 
-Status: Wi-Fi has an official AndroidWorld PASS, and a structured Calendar demo has a database-verified custom PASS. This repository is not a completed benchmark submission.
+Status: Wi-Fi and Markor-to-SMS have official AndroidWorld PASS results, and the structured Calendar demo has a database-verified custom PASS. This repository is not a completed benchmark submission.
 
 ## What exists
 
@@ -10,6 +10,7 @@ Status: Wi-Fi has an official AndroidWorld PASS, and a structured Calendar demo 
 - An AndroidWorld agent adapter, task runners, step budgets, a limited app allowlist, observation/action logs, official verifier integration, and emulator video recording.
 - Launchers for SystemWifiTurnOn, MarkorCreateNote, and MarkorCreateNoteAndSms.
 - A live Wi-Fi development run: 5 actions, official score 1.0/PASS, 71.16 seconds of video. The video, final screenshot, trace, and result are in [`examples/live-wifi-pass`](examples/live-wifi-pass/).
+- A Markor-to-SMS development run: official score 1.0/PASS. The agent creates the requested note, shares its complete plain-text content, and sends it through the emulator's Simple SMS Messenger. Evidence is in [`examples/markor-sms-pass`](examples/markor-sms-pass/).
 - A structured Calendar demo: 16 actions, verified against the Simple Calendar Pro database. Its video and compact result are in [`examples/calendar-demo-pass`](examples/calendar-demo-pass/).
 - A [live demo and verification guide](LIVE_DEMO.md), including a concise code tour and fallback plan.
 
