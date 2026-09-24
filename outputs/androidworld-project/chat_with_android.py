@@ -5,7 +5,7 @@ import subprocess
 import sys
 
 PROJECT = pathlib.Path(__file__).resolve().parent
-VERSION = "2.1"
+VERSION = "2.2"
 COMMANDS = (
     ("SystemWifiTurnOn", 15, ("wifi", "wi-fi", "無線網路", "開啟網路", "打开网络"), "Turn Wi-Fi on"),
         ("SimpleCalendarAddOneEvent", 30, ("calendar", "event", "calendario", "evento", "行事曆", "行事历", "活動", "活动"), "Create a calendar event"),
@@ -13,6 +13,10 @@ COMMANDS = (
 
 def understand(text: str):
     lowered = text.lower()
+    note_words = ("note", "markor", "筆記", "笔记", "記事")
+    sms_words = ("sms", "text message", "message", "share", "短信", "傳送", "传送", "分享")
+    if any(word in lowered for word in note_words) and any(word in lowered for word in sms_words):
+        return "MarkorCreateNoteAndSms", 35, "Create a Markor note and share it by SMS"
     for task, steps, keywords, label in COMMANDS:
         if any(keyword in lowered for keyword in keywords):
             return task, steps, label
@@ -102,7 +106,7 @@ def freeform_goal(text: str) -> str:
 
 def main():
     print(f"GELab-Zero Android assistant v{VERSION}")
-    print("Try: 'Turn Wi-Fi on' or 'Create a calendar event'. Type 'quit' to leave.")
+    print("Try: 'Turn Wi-Fi on', 'Create a calendar event', or 'Create a note and share it by SMS'. Type 'quit' to leave.")
     while True:
         try:
             text = input("\nYou > ").strip()
