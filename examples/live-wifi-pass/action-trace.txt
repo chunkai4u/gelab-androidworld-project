@@ -1,0 +1,5 @@
+STEP 1: AWAKE | value=Settings
+STEP 2: CLICK | point=388,315
+STEP 3: CLICK | point=263,290
+STEP 4: CLICK | point=887,372
+STEP 5: COMPLETE | value=任务完成

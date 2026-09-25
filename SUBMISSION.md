@@ -37,3 +37,7 @@ The Wi-Fi and Markor-to-SMS results are official development passes. The Calenda
 
 Our class documentation is available in Notion:
 https://app.notion.com/p/The-group-project-build-a-GUI-agent-3e3e84bdefa98039bd3af98a85dbcfd4
+
+## Action traces
+
+Each evidence folder includes `action-trace.txt` for quick reading and `trajectory.jsonl` for the original structured action records. The trace lists the model's action at every step, such as `AWAKE`, `CLICK`, and `TYPE`.

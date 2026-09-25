@@ -1,0 +1,15 @@
+STEP 1: AWAKE | value=Markor
+STEP 2: CLICK | point=892,861
+STEP 3: TYPE | value=great_house_2023_05_06, point=288,387
+STEP 4: CLICK | point=857,454
+STEP 5: TYPE | value=The library book is due back on the 15th., point=163,150
+STEP 6: CLICK | point=327,599
+STEP 7: CLICK | point=945,56
+STEP 8: CLICK | point=700,110
+STEP 9: CLICK | point=700,110
+STEP 10: CLICK | point=375,885
+STEP 11: CLICK | point=500,500
+STEP 12: TYPE | value=+11819600133, point=163,122
+STEP 13: CLICK | point=938,122
+STEP 14: CLICK | point=938,942
+STEP 15: COMPLETE | value=任务完成

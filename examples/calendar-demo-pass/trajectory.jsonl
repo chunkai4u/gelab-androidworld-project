@@ -1,0 +1,16 @@
+{"step": 1, "model_response": {"output": "action:AWAKE\tvalue:Simple Calendar Pro\n\n", "seconds": 0.77, "model": "GELab-Zero-4B-preview"}, "parsed_action": "AWAKE", "fields": {"action": "AWAKE", "value": "Simple Calendar Pro"}}
+{"step": 2, "model_response": {"output": "action:CLICK\tpoint:67,347\n\n", "seconds": 0.85, "model": "GELab-Zero-4B-preview"}, "parsed_action": "CLICK", "fields": {"action": "CLICK", "point": "67,347"}}
+{"step": 3, "model_response": {"output": "action:CLICK\tpoint:892,925\n\n", "seconds": 0.9, "model": "GELab-Zero-4B-preview"}, "parsed_action": "CLICK", "fields": {"action": "CLICK", "point": "892,925"}}
+{"step": 4, "model_response": {"output": "action:CLICK\tpoint:892,925\n\n", "seconds": 0.9, "model": "GELab-Zero-4B-preview"}, "parsed_action": "CLICK", "fields": {"action": "CLICK", "point": "892,925"}}
+{"step": 5, "model_response": {"output": "action:TYPE\tvalue:Appointment with Hafid\tpoint:89,162\n\n", "seconds": 1.16, "model": "GELab-Zero-4B-preview"}, "parsed_action": "TYPE", "fields": {"action": "TYPE", "value": "Appointment with Hafid", "point": "89,162"}}
+{"step": 6, "model_response": {"output": "action:CLICK\tpoint:892,455\n\n", "seconds": 0.96, "model": "GELab-Zero-4B-preview"}, "parsed_action": "CLICK", "fields": {"action": "CLICK", "point": "892,455"}}
+{"step": 7, "model_response": {"output": "action:CLICK\tpoint:497,636\n\n", "seconds": 0.94, "model": "GELab-Zero-4B-preview"}, "parsed_action": "CLICK", "fields": {"action": "CLICK", "point": "497,636"}}
+{"step": 8, "model_response": {"output": "action:CLICK\tpoint:773,758\n\n", "seconds": 0.91, "model": "GELab-Zero-4B-preview"}, "parsed_action": "CLICK", "fields": {"action": "CLICK", "point": "773,758"}}
+{"step": 9, "model_response": {"output": "action:CLICK\tpoint:892,511\n\n", "seconds": 0.92, "model": "GELab-Zero-4B-preview"}, "parsed_action": "CLICK", "fields": {"action": "CLICK", "point": "892,511"}}
+{"step": 10, "model_response": {"output": "action:CLICK\tpoint:773,758\n\n", "seconds": 0.95, "model": "GELab-Zero-4B-preview"}, "parsed_action": "CLICK", "fields": {"action": "CLICK", "point": "773,758"}}
+{"step": 11, "model_response": {"output": "action:CLICK\tpoint:892,511\n\n", "seconds": 0.96, "model": "GELab-Zero-4B-preview"}, "parsed_action": "CLICK", "fields": {"action": "CLICK", "point": "892,511"}}
+{"step": 12, "model_response": {"output": "action:CLICK\tpoint:773,758\n\n", "seconds": 0.94, "model": "GELab-Zero-4B-preview"}, "parsed_action": "CLICK", "fields": {"action": "CLICK", "point": "773,758"}}
+{"step": 13, "model_response": {"output": "action:CLICK\tpoint:892,511\n\n", "seconds": 0.95, "model": "GELab-Zero-4B-preview"}, "parsed_action": "CLICK", "fields": {"action": "CLICK", "point": "892,511"}}
+{"step": 14, "model_response": {"output": "action:CLICK\tpoint:419,626\n", "seconds": 0.9, "model": "GELab-Zero-4B-preview"}, "parsed_action": "CLICK", "fields": {"action": "CLICK", "point": "419,626"}}
+{"step": 15, "model_response": {"output": "action:CLICK\tpoint:773,758\n\n", "seconds": 0.95, "model": "GELab-Zero-4B-preview"}, "parsed_action": "CLICK", "fields": {"action": "CLICK", "point": "773,758"}}
+{"step": 16, "model_response": {"output": "action:CLICK\tpoint:938,86\t", "seconds": 0.86, "model": "GELab-Zero-4B-preview"}, "parsed_action": "CLICK", "fields": {"action": "CLICK", "point": "938,86"}}
