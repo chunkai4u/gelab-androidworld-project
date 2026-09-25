@@ -1,0 +1,19 @@
+STEP 1: AWAKE | value=Simple Calendar Pro
+STEP 2: CLICK | point=496,604
+STEP 3: CLICK | point=892,925
+STEP 4: CLICK | point=892,925
+STEP 5: TYPE | value=Call with Bob, point=498,162
+STEP 6: CLICK | point=148,295
+STEP 7: TYPE | value=We will plan marketing strategies., point=498,295
+STEP 8: CLICK | point=892,455
+STEP 9: CLICK | point=501,636
+STEP 10: CLICK | point=256,562
+STEP 11: CLICK | point=773,758
+STEP 12: CLICK | point=892,455
+STEP 13: CLICK | point=773,758
+STEP 14: CLICK | point=892,455
+STEP 15: CLICK | point=773,758
+STEP 16: CLICK | point=892,455
+STEP 17: CLICK | point=501,454
+STEP 18: CLICK | point=773,758
+STEP 19: CLICK | point=938,86

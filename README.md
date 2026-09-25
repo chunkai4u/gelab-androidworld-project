@@ -25,6 +25,7 @@ Each evidence folder contains a result file and visual evidence. The Calendar re
 - `outputs/gelab-runpod/`: Runpod model service and client code.
 - `examples/`: selected successful runs for review.
 - `SUBMISSION.md`: the short guide for graders.
+- `PROMPT_AND_VERIFICATION.md`: Calendar prompt comparison, parser, verifier, and action logs.
 
 ## Run locally
 
