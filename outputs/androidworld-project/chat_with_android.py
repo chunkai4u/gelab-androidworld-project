@@ -1,5 +1,6 @@
 """Small natural-language terminal front end for verified AndroidWorld tasks."""
 import pathlib
+import json
 import re
 import subprocess
 import sys
@@ -28,6 +29,25 @@ def is_specific_request(text: str) -> bool:
     # Only the exact generic phrasing requests a generated, verifier-scored task.
     # Any added detail must be preserved as the user's live request.
     return lowered not in generic
+
+def markor_sms_params(text: str):
+    """Extract the course task's three explicit values from an English request."""
+    match = re.search(
+        r"create\s+(?:a\s+)?note\s+named\s+(.+?)\s+with\s+(.+?)\s*\.??\s+share\s+its\s+entire\s+content\s+with\s+([+\d][\d\s-]*)\s+via\s+sms",
+        text,
+        re.I | re.S,
+    )
+    if not match:
+        return None
+    file_name = match.group(1).strip()
+    body = match.group(2).strip()
+    number = match.group(3).strip().rstrip('.')
+    separator = text[match.end(2):match.start(3)]
+    if '.' in separator and not body.endswith('.'):
+        body += '.'
+    if not file_name or not body or not re.fullmatch(r"\+?\d[\d\s-]*", number):
+        return None
+    return {"file_name": file_name, "text": body, "number": number.replace(" ", "").replace("-", "")}
 
 def chinese_number(value: str) -> int:
     digits={"一":1,"二":2,"三":3,"四":4,"五":5,"六":6,"七":7,"八":8,"九":9}
@@ -119,16 +139,19 @@ def main():
             print("I currently support Wi-Fi and calendar-event requests only."); continue
         task, steps, label = match
         specific = task == "SimpleCalendarAddOneEvent" and is_specific_request(text)
+        sms_params = markor_sms_params(text) if task == "MarkorCreateNoteAndSms" else None
         if specific:
             print(f"Understood: {label}. Running your exact request as a live free-form demo.")
             print("The run will be recorded, but it has no official PASS/FAIL because the request is not an AndroidWorld generated task.")
         else:
             print(f"Understood: {label}. Preparing AndroidWorld task {task}.")
-            print("AndroidWorld generates the exact task details so the official verifier can score it.")
+            print("Using your exact file name, text, and test number with AndroidWorld's official verifier." if sms_params else "AndroidWorld generates the exact task details so the official verifier can score it.")
         subprocess.run([str(PROJECT / "start-emulator.command")], check=True)
         subprocess.run([sys.executable, str(PROJECT / "wait_ready.py")], check=True)
         command=[sys.executable,str(PROJECT / "run_task.py"),"--runs","1","--max-steps",str(40 if specific else steps),"--label","terminal-chat","--user-command",text]
         command += ["--freeform-goal",freeform_goal(text)] if specific else ["--task",task]
+        if sms_params:
+            command += ["--task-params-json",json.dumps(sms_params)]
         result = subprocess.run(command)
         print("\nVerification complete." if result.returncode == 0 else "\nRun stopped; inspect the terminal output above.")
 

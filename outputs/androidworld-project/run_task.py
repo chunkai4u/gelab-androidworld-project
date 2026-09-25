@@ -28,7 +28,7 @@ def _verify_freeform_calendar(goal, env):
         return True, {'expected':expected,'matched_title':row.title,'matched_start':start_at.isoformat(),'matched_end':end_at.isoformat()}
     return False, {'expected':expected,'rows_checked':len(rows)}
 def main():
-    p=argparse.ArgumentParser(); p.add_argument('--task',choices=TASKS,default=TASKS[0]); p.add_argument('--runs',type=int,default=1); p.add_argument('--max-steps',type=int,default=20); p.add_argument('--seed',type=int,default=42); p.add_argument('--label',default='development'); p.add_argument('--user-command',default=None); p.add_argument('--freeform-goal',default=None); args=p.parse_args()
+    p=argparse.ArgumentParser(); p.add_argument('--task',choices=TASKS,default=TASKS[0]); p.add_argument('--runs',type=int,default=1); p.add_argument('--max-steps',type=int,default=20); p.add_argument('--seed',type=int,default=42); p.add_argument('--label',default='development'); p.add_argument('--user-command',default=None); p.add_argument('--freeform-goal',default=None); p.add_argument('--task-params-json',default=None); args=p.parse_args()
     if not 1<=args.runs<=3 or not 1<=args.max_steps<=60: p.error('runs must be 1–3 and max-steps 1–60')
     flags.FLAGS(['runner']); logging.set_verbosity(logging.WARNING)
     from android_world import registry
@@ -56,11 +56,13 @@ def main():
                 env.reset(go_home=True)
                 info={'task':None,'run':run,'seed':args.seed+run-1,'label':args.label,'goal':goal,'params':None,'model':'GELab-Zero-4B-preview','observation':'screenshot','grounding':'normalized coordinates','step_budget':args.max_steps,'verifier':'NOT_APPLICABLE','failure_class':None,'configuration':'mac-intel-api33-host-gpu-4gb-4core-540x1200','mode':'freeform'}
             else:
-                task=catalog[args.task](catalog[args.task].generate_random_params())
+                params=json.loads(args.task_params_json) if args.task_params_json else catalog[args.task].generate_random_params()
+                if not isinstance(params,dict): raise ValueError('--task-params-json must be a JSON object')
+                task=catalog[args.task](params)
                 print('Preparing a clean task state; this can take a few minutes on this Mac.',flush=True)
                 env.reset(go_home=True); task.initialize_task(env)
                 goal=task.goal
-                info={'task':args.task,'run':run,'seed':args.seed+run-1,'label':args.label,'goal':goal,'params':task.params,'model':'GELab-Zero-4B-preview','observation':'screenshot','grounding':'normalized coordinates','step_budget':args.max_steps,'verifier':'NOT_RUN','failure_class':None,'configuration':'mac-intel-api33-host-gpu-4gb-4core-540x1200','mode':'verified_task'}
+                info={'task':args.task,'run':run,'seed':args.seed+run-1,'label':args.label,'goal':goal,'params':task.params,'model':'GELab-Zero-4B-preview','observation':'screenshot','grounding':'normalized coordinates','step_budget':args.max_steps,'verifier':'NOT_RUN','failure_class':None,'configuration':'mac-intel-api33-host-gpu-4gb-4core-540x1200','mode':'verified_task','parameter_source':'user_request' if args.task_params_json else 'androidworld_generated'}
             if args.user_command: info['user_command']=args.user_command
             _write_result(folder/'result.json',info)
             if task is None:
