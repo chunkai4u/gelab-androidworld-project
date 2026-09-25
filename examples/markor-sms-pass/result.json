@@ -1,0 +1,25 @@
+{
+  "task": "MarkorCreateNoteAndSms",
+  "run": 1,
+  "seed": 42,
+  "label": "markor-sms-chooser-fix",
+  "goal": "Create a new note in Markor named great_house_2023_05_06.md with the following text: The library book is due back on the 15th.. Share the entire content of the note with the phone number +11819600133 via SMS using Simple SMS Messenger",
+  "params": {
+    "file_name": "great_house_2023_05_06.md",
+    "text": "The library book is due back on the 15th.",
+    "number": "+11819600133"
+  },
+  "model": "GELab-Zero-4B-preview",
+  "observation": "screenshot",
+  "grounding": "normalized coordinates",
+  "step_budget": 35,
+  "verifier": "PASS",
+  "failure_class": null,
+  "configuration": "mac-intel-api33-host-gpu-4gb-4core-540x1200",
+  "mode": "verified_task",
+  "score": 1.0,
+  "agent_reported_done": true,
+  "recording": "/Users/chunkaiku/Documents/Codex/2026-09-22/s84/outputs/androidworld-project/runs/20260924-114449-MarkorCreateNoteAndSms-1/recording.mp4",
+  "steps": 14,
+  "seconds": 143.89
+}

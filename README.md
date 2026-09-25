@@ -1,44 +1,37 @@
-# GELab-Zero × AndroidWorld course project
+# GELab-Zero × AndroidWorld
 
-**English** | [🌐 繁體中文](README.zh-TW.md)
+A course project that builds a GUI agent for Android. A user types a request, GELab-Zero looks at the Android screen, Python performs one small action, and AndroidWorld checks the final result.
 
-Status: Wi-Fi and Markor-to-SMS have official AndroidWorld PASS results, and the structured Calendar demo has a database-verified custom PASS. This repository is not a completed benchmark submission.
+## What we built
 
-## What exists
+- **GELab-Zero** chooses the next action from the task and current Android screenshot.
+- **Runpod** provides the cloud GPU for the model.
+- **Python** connects the model, local Android emulator, and verifier.
+- **AndroidWorld** provides Android tasks and checks the real phone state.
 
-- A private Runpod model service for GELab-Zero-4B-preview, plus bootstrap and SSH client scripts.
-- An AndroidWorld agent adapter, task runners, step budgets, a limited app allowlist, observation/action logs, official verifier integration, and emulator video recording.
-- Launchers for SystemWifiTurnOn, MarkorCreateNote, and MarkorCreateNoteAndSms.
-- A live Wi-Fi development run: 5 actions, official score 1.0/PASS, 71.16 seconds of video. The video, final screenshot, trace, and result are in [`examples/live-wifi-pass`](examples/live-wifi-pass/).
-- A Markor-to-SMS development run: official score 1.0/PASS. The agent creates the requested note, shares its complete plain-text content, and sends it through the emulator's Simple SMS Messenger. Evidence is in [`examples/markor-sms-pass`](examples/markor-sms-pass/).
-- A structured Calendar demo: 16 actions, verified against the Simple Calendar Pro database. Its video and compact result are in [`examples/calendar-demo-pass`](examples/calendar-demo-pass/).
-- A [live demo and verification guide](LIVE_DEMO.md), including a concise code tour and fallback plan.
+## Demonstrations and evidence
 
-## What is not finished
+| Task | Result | Evidence |
+|---|---|---|
+| `SystemWifiTurnOn` | Official AndroidWorld `PASS`, score 1.0 | [`examples/live-wifi-pass/`](examples/live-wifi-pass/) |
+| `MarkorCreateNoteAndSms` | Official AndroidWorld `PASS`, score 1.0 | [`examples/markor-sms-pass/`](examples/markor-sms-pass/) |
+| Calendar request | `CUSTOM_CALENDAR_PASS` after database check | [`examples/calendar-demo-pass/`](examples/calendar-demo-pass/) |
 
-The next implementation task is `ExpenseAddMultipleFromMarkor`, which reads reimbursable transactions from Markor and records them in Pro Expense. Formal repeated evaluation has not started.
+Each evidence folder contains a result file and visual evidence. The Calendar result is a custom verified demo and is not an official AndroidWorld benchmark score.
 
-The successful Wi-Fi example validates the reference configuration recorded in its result file. Do not use development attempts to calculate a formal success rate.
+## Repository structure
 
-## Layout
+- `outputs/androidworld-project/`: local Mac launcher, agent adapter, runner, and recorder.
+- `outputs/gelab-runpod/`: Runpod model service and client code.
+- `examples/`: selected successful runs for review.
+- `SUBMISSION.md`: the short guide for graders.
 
-- `outputs/gelab-runpod/`: cloud model service, private client, and rebuild scripts.
-- `outputs/androidworld-project/`: Mac launchers, agent, recording, baseline handling, and environment notes.
-- `examples/live-wifi-pass/`: latest video, trace, final screenshot, and sanitized official verifier result.
-- `ISSUES.md`: the next concrete work items.
+## Run locally
 
-The `outputs/` layout is retained because the existing launchers resolve the local `work/` directory relative to it. Do not flatten these folders without adjusting paths.
+The reference setup uses an Intel Mac, Android emulator, AndroidWorld, and a separately configured Runpod model service. It is not a portable one-click installer because the emulator, model weights, and credentials are intentionally excluded.
 
-## Working as a team
+On the reference Mac, open `outputs/androidworld-project/Chat-With-Android.command` and type a supported request. The Terminal prints each action as `STEP`, and the run saves evidence under the local `runs/` directory.
 
-Everyone can clone the code and review logs without installing AndroidWorld. Start with one experiment operator and, later, one backup machine. Other members can work on the adapter, model service, failure analysis, and presentation. Use a branch per issue and review changes through pull requests. Record the code revision, model, task seed, and environment configuration for every reported run.
+## Security and scope
 
-Only the experiment operator needs the full Android emulator and AndroidWorld setup. This source bundle is not a portable one-click installer. The launchers currently target an Intel Mac and expect dependencies, app snapshots, SDK/AVD, and a Python environment in an untracked `work/` directory. See the component README files before attempting to reproduce it.
-
-The YADB helper comes from the official GELab-Zero repository at commit `7b619f6f67d2b1101021fc453cb27bd48a29e4f2`; the local integration expects that source checkout at `work/gelab-zero-source`. AndroidWorld is pinned to `e3fea3ccc69787570e282c99573298f1c3019a34`. The lockfile describes the reference Mac and is not a universal installer.
-
-## Access and large files
-
-No SSH private key, account credential, model weight, emulator image, or virtual environment is included. Runpod connection identifiers are placeholders in this bundle. Each cloud user needs their own authorized SSH key and host configuration; do not share the reference Mac's private key. The checked-in Wi-Fi recording is intentionally small (about 0.6 MB) and is included with its verifier evidence.
-
-This is a private team repository. Track work in [GitHub Issues](https://github.com/chunkai4u/gelab-androidworld-project/issues). Collaborators have not been invited yet.
+This repository does not include cloud credentials, SSH private keys, model weights, emulator images, or personal data. The included results are development demonstrations, not a full repeated benchmark evaluation.

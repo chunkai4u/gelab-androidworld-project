@@ -1,6 +1,0 @@
-{"step": 1, "model_response": {"output": "action:SLIDE\tpoint1:500,743\tpoint2:492,289", "seconds": 1.24, "model": "GELab-Zero-4B-preview"}, "parsed_action": "SLIDE", "fields": {"action": "SLIDE", "point1": "500,743", "point2": "492,289"}}
-{"step": 2, "model_response": {"output": "action:CLICK\tpoint:161,722\n\n", "seconds": 0.82, "model": "GELab-Zero-4B-preview"}, "parsed_action": "CLICK", "fields": {"action": "CLICK", "point": "161,722"}}
-{"step": 3, "model_response": {"output": "action:CLICK\tpoint:388,342\n\n", "seconds": 0.82, "model": "GELab-Zero-4B-preview"}, "parsed_action": "CLICK", "fields": {"action": "CLICK", "point": "388,342"}}
-{"step": 4, "model_response": {"output": "action:CLICK\tpoint:263,260\n\n", "seconds": 0.83, "model": "GELab-Zero-4B-preview"}, "parsed_action": "CLICK", "fields": {"action": "CLICK", "point": "263,260"}}
-{"step": 5, "model_response": {"output": "action:CLICK\tpoint:896,342\n\n", "seconds": 0.84, "model": "GELab-Zero-4B-preview"}, "parsed_action": "CLICK", "fields": {"action": "CLICK", "point": "896,342"}}
-{"step": 6, "model_response": {"output": "action:COMPLETE\treturn:Wi-Fi is now on.", "seconds": 0.74, "model": "GELab-Zero-4B-preview"}, "parsed_action": "COMPLETE", "fields": {"action": "COMPLETE", "return": "Wi-Fi is now on."}}
