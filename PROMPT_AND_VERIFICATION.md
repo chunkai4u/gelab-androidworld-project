@@ -16,12 +16,13 @@ This is a development comparison, not a controlled prompt-only experiment. The r
 - Failed earlier run: [`examples/calendar-vague-prompt-failed/`](examples/calendar-vague-prompt-failed/)
 - Improved successful run: [`examples/calendar-demo-pass/`](examples/calendar-demo-pass/)
 
-Each folder contains:
+Each GitHub folder contains:
 
-- `recording.mp4`: Android emulator recording.
 - `action-trace.txt`: readable step-by-step trace.
 - `trajectory.jsonl`: original structured action records.
 - `result.json`: task goal, result, and metadata.
+
+The improved run also includes `recording.mp4` on GitHub. The final submission ZIP additionally includes the recording for the earlier failed run.
 
 ## Parameter parser
 
